@@ -108,7 +108,7 @@ export default function ResumeBuilder() {
             <Button variant="outline" onClick={handlePrint}>
               Download PDF
             </Button>
-            {/* <ModeToggle /> */}
+            <ModeToggle />
           </div>
         </div>
       </header>
