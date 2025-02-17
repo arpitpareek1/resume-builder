@@ -56,7 +56,6 @@ export interface PersonalInfo {
 export interface Extras {
   personalInfo: {
     title: string;
-    icon: string;
     url: string;
   }[];
   summary: string;

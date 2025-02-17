@@ -12,7 +12,6 @@ import type {
   Skills,
   PersonalInfo,
 } from "@/types/resume";
-import Preview from "./resumes/ProfessionalResume";
 import React from "react";
 import {
   ResizableHandle,
@@ -31,6 +30,7 @@ import ProjectSelection from "./sections/Projects";
 import ResumeSelectionModal from "./modals/ResumeSelectionModal";
 import ResumeProvider from "./components/resume-provider";
 import { ModeToggle } from "./components/ModeToggle";
+import MenuToggle from "./components/MenuToggle";
 
 export default function ResumeBuilder() {
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
@@ -97,9 +97,29 @@ export default function ResumeBuilder() {
   return (
     <div className="min-h-screen bg-background custom-scrollbar">
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto py-4 flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Resume Builder</h1>
           <div className="flex items-center gap-4">
+            <MenuToggle
+              callback={(latestData) => {
+                setPersonalInfo(latestData.personalInfo);
+                setEmployments(latestData.employments);
+                setCourses(latestData.courses);
+                setProjects(latestData.projects);
+                setEducation(latestData.education);
+                setSkills(latestData.userSkills);
+                setExtras(latestData.extras);
+              }}
+              data={{
+                personalInfo: personalInfo,
+                employments: employments,
+                courses: courses,
+                projects: projects,
+                education: education,
+                userSkills: userSkills,
+                extras: extras,
+              }}
+            />
             <ResumeSelectionModal
               onContinue={(t: Template) => {
                 setSelectedTemplate(t);
@@ -153,7 +173,7 @@ export default function ResumeBuilder() {
               <ProjectSelection projects={projects} setProjects={setProjects} />
             </div>
           </ResizablePanel>
-          <ResizableHandle />
+          <ResizableHandle  withHandle/>
           {/* Preview */}
           <ResizablePanel defaultSize={60}>
             <div className="space-y-6 h-[90vh] overflow-auto custom-scrollbar bg-background">
